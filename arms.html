@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<title>martinwguy.co.uk</title>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+<!-- Google Ad banner -->
+<table border=0 width="100%">
+<tr><td align=center>
+<script type="text/javascript"><!--
+google_ad_client = "pub-6364874913104129";
+google_ad_width = 728;
+google_ad_height = 90;
+google_ad_format = "728x90_as";
+google_ad_type = "text";
+google_ad_channel = "";
+//-->
+</script>
+<script type="text/javascript"
+  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</table>
+<h1 align=center>Martin's ARMs</h1>
+I have a bunch of ARM systems from the
+<A HREF="http://wiki.debian.org/ArmEabiPort">Debian ARM EABI port</A>
+and for my work with
+<A HREF="http://simplemachines.it"><TT>simplemachines.it</TT></A>.
+<P>
+They're on 24/7 so you are welcome to use them. They are:
+<HR>
+
+<H2><A HREF="http://n2100.martinwguy.co.uk">n2100</A> - 600Mhz - 512MB</H2>
+A 600 MHz XScale-80219 (v5l) w/ 512MB RAM + swap, 2 x 100MBps ethernet,
+160GB disk. Debian armel sid with arm-etch, arm-sid and arm-lenny
+in chroots with a common <TT>/home</TT>.
+<HR>
+
+<H2><A HREF="http://arma.martinwguy.co.uk">arma</A> - 200Mhz - 64MB</H2>
+<A HREF="/martin/foto/machines/20070812-arma.jpg"><IMG ALIGN=LEFT
+ SRC="/martin/foto/machines/20070812-arma-mini.jpg"></A>
+An <A HREF="http://www.atmark-techno.com/en/">atmark-techno</A>
+<A HREF="http://www.atmark-techno.com/en/products/armadillo/a9">Armadillo-9</A>.
+based on the Cirrus Logic EP9315 chip:
+a 200MHz ARM920T (armv4t) integer processor with
+Maverick Crunch math coprocessor and 64MB RAM,
+800x600 video output with mouse, keyboard, Debian root filesystem
+and swap all on a USB hub.
+<P>
+Running the Atmark 2.4.27 kernel and busybox userland, bootstrapped into
+a Debian "etch" system ARM on a 1GB USB pendrive. The old system is accessible
+via telnet or on the serial console from <TT>guest</TT> using
+<PRE>
+    $ minicom arma
+</PRE>
+<P>
+Its <TT>/home</TT> is that of <TT>cluster</TT>.
+<P>
+Runs a web server, a forum and acts as an X terminal onto other hosts,
+is used for Debian old-ABI testing and as an access point from the net
+to other hosts on the local subnet.
+<P>
+You don't need to ask to use this; it is free to use over ssh as
+<TT>arma.homelinux.net</TT> with user <TT>guest</TT>
+and password <TT>friend</TT>.
+In several years of free access
+this account doesn't ever seem to have been abused.
+<br clear=all>
+<HR>
+
+<H2>ts7250 - 200MHz - 64MB</H2>
+
+<A HREF="/martin/foto/machines/ts7250.jpg"><IMG ALIGN=LEFT WIDTH=256 HEIGHT=164
+ SRC="/martin/foto/machines/ts7250-mini.jpg"
+ ALT="A four-inch-square TS-7250 single-board computer close up"></A>
+On the intranet at 10.0.0.25 another 200MHz EP9302 with 64MB RAM
+with SD card storage (for swap) and no screen
+100 Mbps ethernet and the serial console is accessible from <TT>guest</TT>:
+<PRE>
+	$ minicom ts7250
+</PRE>
+It runs Debian armel sid on a root filesystem served over NFS from
+<TT>cluster</TT>'s <TT>/tftpboot/armel-sid</TT>
+There are <A HREF="/martin/tech/ts7250">notes</A> on building this and its
+custom linux kernel.
+<P>
+Used for ARM EABI development, testing EABI software on armv4t hardware and for
+testing MaverickCrunch FPU floating point code generation and speed.
+<P>
+<TT>/home</TT> is that of <TT>cluster</TT>.
+<br clear=all>
+<HR>
+
+<H2>h1940 - 266MHz - 64MB</H2>
+
+<TABLE WIDTH="100%" BORDER=0>
+<TR><TD ALIGN=CENTER>
+<A HREF="/martin/foto/machines/h1940-loading.jpg"><IMG ALIGN=MIDDLE SRC="/martin/foto/machines/h1940-loading-mini.jpg" ALT="h1940 loading"></A>
+<BR CLEAR=ALL>
+Loading...
+<TD ALIGN=CENTER>
+<A HREF="/martin/foto/machines/h1940-loaded.jpg"><IMG ALIGN=MIDDLE SRC="/martin/foto/machines/h1940-loaded-mini.jpg" ALT="h1940 loaded"></A>
+<BR CLEAR=ALL>
+Loaded.
+<TD ALIGN=CENTER>
+<A HREF="/martin/foto/machines/h1940-ipaddr.jpg"><IMG ALIGN=MIDDLE
+ SRC="/martin/foto/machines/h1940-ipaddr-mini.jpg"
+ WIDTH=208 HEIGHT=325 ALT="h1940 saying 'Configuring usb0: 192.168.6.2'"></A>
+<BR CLEAR=ALL>
+Booted.
+</TABLE>
+266MHz 64MB arm920t, local flash, usb net to <TT>guest</TT>
+OS: Angstrom minimal system booted using HaReT from WinCE.
+Debian armel rootfs over NFS a possibility.
+<P>
+<U>Config:</U>
+<P>
+On USB host <TT>guest</TT>:
+<PRE>
+    # ifconfig usb1 192.168.6.1
+    # iptables -t nat -A POSTROUTING -s 192.168.6.0/24 -j SNAT --to-source 88.96.6.157
+</PRE>
+<P>
+On other local hosts:
+<PRE>
+    # route add 192.168.6.0 netmask 255.255.255.0 gateway 88.96.6.157
+</PRE>
+<P>
+On itself, put
+<PRE>
+    nameserver 88.96.6.153
+</PRE>
+in <TT>/etc/resolv.conf</TT>.
+<HR>
+
+<H2>boxer - 400MHz - 64MB</H2>
+
+<A HREF="/martin/foto/machines/boxer-open-by-tank.jpg"><IMG ALIGN=LEFT
+ SRC="/martin/foto/machines/boxer-open-by-tank-mini.jpg"
+ WIDTH=256 HEIGHT=191
+ ALT="A very small laptop (palmtop) next to some computer mice"></A>
+
+A 400MHz XScale with 64MB RAM running Angstrom GPE graphical environment.
+Wireless (also USB) ethernet, touch screen.
+<P>
+<U>Config:</U>
+<P>
+None. It just picks up the open wifi.
+<BR CLEAR=ALL>
+<HR>
+
+<H2>neo - 266 MHz - 128MB</H2>
+
+<A HREF="/martin/foto/machines/neo-clock-date.jpg"><IMG ALIGN=RIGHT
+ SRC="/martin/foto/machines/neo-clock-date-mini.jpg"
+ WIDTH=256 HEIGHT=194
+ ALT="The NEO1973 linuxphone with 2x3 inch touch screen"></A>
+
+FIC neo1973 Linux phone
+<P>
+266MHz arm920t, 128MB RAM + swap, 500MB SD card,
+GPS/GSM modem, USB network to <TT>guest</TT>.
+<BR>
+OS: <A HREF="http://openmoko.com">OpenMoko</A> 2007.2,
+optionally hosting a chroot of Debian armel sid over NFS.
+<P>
+<U>Config:</U>
+<P>
+On <TT>guest</TT>, configure USB net and provide internet for the device:
+<PRE>
+    # ifconfig usb0 192.168.0.200 netmask 255.255.255.0
+    # iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -j SNAT --to-source 88.96.6.157
+    # echo 1 > /proc/sys/net/ipv4/ip_forward
+</PRE>
+<P>
+On other hosts and specially on the public/localnet gateway:
+<PRE>
+    # route add -net 192.168.0.0 netmask 255.255.255.0 gateway 88.96.6.157
+</PRE>
+<P>
+On the ADSL router/name server etc, add the same route.
+<P>
+Angstrom config on the device: put
+<PRE>
+    nameserver 88.96.6.153
+</PRE>
+in <TT>/etc/resolv.conf</TT>
+<HR>
+
+<H2>QEMU - ~200Mhz each - 247MB</H2>
+On 2 x 2GHz AMD Athlon, three simulated ARM systems, each with 247MB RAM + swap:
+arm-etch, arm-sid and armel-sid, all sharing /home with the host
+
+<HR>
+Martin Guy &lt;martinwguy&#64;gmail.com>
+</body>
+</html>
